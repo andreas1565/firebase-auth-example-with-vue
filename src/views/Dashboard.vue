@@ -16,10 +16,11 @@ export default {
     Dashboard
   },
   methods: {
-    ...mapActions(["GetUserNickName"])
+    ...mapActions(["GetUserNickName", "initRealtimeListeners"])
   },
   computed: mapGetters(["GetUserName"]),
   created() {
+    this.initRealtimeListeners();
     this.GetUserNickName(auth.currentUser.uid);
   }
 };

@@ -67,6 +67,16 @@ const actions = {
             console.log(doc.data().nickname);
             commit('setNickName', doc.data().nickname);
         })
+    },
+    initRealtimeListeners({ commit }) {
+        db.collection("users").onSnapshot(function (snapshot) {
+            snapshot.docChanges().forEach(function (change) {
+                if (change.type === "modified") {
+                    console.log("update", change.doc.data());
+                    commit('setNickName', change.doc.data().nickname)
+                }
+            });
+        });
     }
 }
 
